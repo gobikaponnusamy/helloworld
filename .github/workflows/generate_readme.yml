@@ -1,0 +1,25 @@
+name: Create README for Pull Request
+ 
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+ 
+jobs:
+  create-readme:
+    runs-on: self-hosted
+ 
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+ 
+      - name: Generate README
+        run: |
+          echo "# ${{ github.event.pull_request.title }}" > README.md
+          echo -e "\n${{ github.event.pull_request.body }}" >> README.md
+ 
+      - name: Display generated README
+        run: cat README.md
+
+
